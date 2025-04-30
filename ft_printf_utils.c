@@ -57,7 +57,7 @@ int	print_uint(unsigned int n)
 		len += print_char(nbr + 48);
 	else
 	{
-		len += print_int(nbr / 10);
+		len += print_uint(nbr / 10);
 		len += print_char(nbr % 10 + 48);
 	}
 	return (len);
