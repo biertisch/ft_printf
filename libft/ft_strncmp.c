@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -27,27 +25,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s1;
-	char	*s2;
-	int		n;
-
-	if (argc != 4)
-	{
-		printf("Usage: [filename] [string 1] [string 2] [length]\n");
-		return (1);
-	}
-	s1 = argv[1];
-	s2 = argv[2];
-	n = atoi(argv[3]);
-	printf("ft_strncmp: %d\n", ft_strncmp(s1, s2, n));
-	printf("strncmp: %d\n", strncmp(s1, s2, n));
-	printf("ft_strncmp: %d\n", ft_strncmp("test\0", "test\1", 5));
-	printf("strncmp: %d\n", strncmp("test\0", "test\1", 5));
-	printf("ft_strncmp: %d\n", ft_strncmp("\0", "\200", 1));
-	printf("strncmp: %d\n", strncmp("\0", "\200", 1));
-	return (0);
-}*/

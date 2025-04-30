@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
@@ -27,31 +25,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s;
-	char	c;
-	int	n;
-
-	if (argc != 4)
-	{
-		printf("Usage: [filename] [string] [character] [size]\n");
-		return (1);
-	}
-	s = argv[1];
-	c = argv[2][0];
-	n = ft_atoi(argv[3]);
-
-	printf("Testing with ft_memchr: %s\n", (char *)ft_memchr(s, c, n));
-	printf("Testing with memchr: %s\n", (char *)memchr(s, c, n));
-
-	printf("Testing with ft_memchr: %s\n", (char *)ft_memchr(s, '\0', n));
-	printf("Testing with memchr: %s\n", (char *)memchr(s, '\0', n));
-
-	printf("Testing with ft_memchr: %s\n", (char *)ft_memchr(s, s[0] + 256, n));
-	printf("Testing with memchr: %s\n", (char *)memchr(s, s[0] + 256, n));
-
-	return (0);
-}*/

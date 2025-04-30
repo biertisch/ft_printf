@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -31,28 +30,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(sub, s + start, len + 1);
 	return (sub);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s;
-	char	*sub;
-	int		start;
-	int		len;
-
-	if (argc != 4)
-	{
-		printf("Usage: ./a.out [string] [start] [max length]\n");
-		return (1);
-	}
-	s = argv[1];
-	start = ft_atoi(argv[2]);
-	len = ft_atoi(argv[3]);
-	sub = ft_substr(s, start, len);
-	if (!sub)
-		printf("NULL\n");
-	else
-		printf("%s\n", sub);
-	free(sub);
-	return (0);
-}*/

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
 #include "libft.h"
 
 int	ft_isalnum(int c)
@@ -20,30 +18,3 @@ int	ft_isalnum(int c)
 		return (1);
 	return (0);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	c;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [character]\n");
-		return (1);
-	}
-	c = argv[1][0];
-
-	printf("ft_isalnum: ");
-	if (ft_isalnum(c))
-		printf("%c is alphanumeric\n", c);
-	else
-		printf("%c is not alphanumeric\n", c);
-
-	printf("isalnum: ");
-	if (isalnum(c))
-		printf("%c is alphanumeric\n", c);
-	else
-		printf("%c is not alphanumeric\n", c);
-	
-	return (0);
-}*/

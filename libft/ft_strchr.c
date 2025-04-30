@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
@@ -29,29 +27,3 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s + i);
 	return (NULL);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s;
-	char	c;
-
-	if (argc != 3)
-	{
-		printf("Usage: [filename] [string] [character]\n");
-		return (1);
-	}
-	s = argv[1];
-	c = argv[2][0];
-	printf("ft_strchr: %s\n", ft_strchr(s, c));
-	printf("strchr: %s\n", strchr(s, c));
-	printf("ft_strchr: %s\n", ft_strchr(s, '\0'));
-	printf("strchr: %s\n", strchr(s, '\0'));
-	printf("ft_strchr: %s\n", ft_strchr("", '\0'));
-	printf("strchr: %s\n", strchr("", '\0'));
-	printf("ft_strchr: %s\n", ft_strchr(s, s[0] + 256));
-	printf("strchr: %s\n", strchr(s, s[0] + 256));
-	printf("ft_strchr: %s\n", ft_strchr(s, 256));
-	printf("strchr: %s\n", strchr(s, 256));
-	return (0);
-}*/

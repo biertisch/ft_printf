@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
@@ -19,19 +18,3 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	write(fd, s, ft_strlen(s));
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s; 
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [string]\n");
-		return (1);
-	}
-	s = argv[1];
-	ft_putstr_fd(s, 1);
-	ft_putstr_fd("\n", 1);
-	return (0);
-}*/

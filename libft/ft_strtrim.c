@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 static int	ft_isset(char c, const char *set)
@@ -49,26 +48,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	ft_strlcpy(strim, s1 + start, size);
 	return (strim);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s;
-	char	*set;
-	char	*strim;
-
-	if (argc != 3)
-	{
-		printf("Usage: [filename] [string] [set of characters]\n");
-		return (1);
-	}
-	s = argv[1];
-	set = argv[2];
-	strim = ft_strtrim(s, set);
-	if (!strim)
-		printf("NULL\n");
-	else
-		printf("%s\n", strim);
-	free(strim);
-	return (0);
-}*/

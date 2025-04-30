@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
@@ -35,24 +34,3 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(nbr % 10 + 48, fd);
 	}
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	int	n;
-
-	if (argc != 2)
-	{
-		ft_putstr_fd("Usage: [filename] [number]\n", 1);
-		return (1);
-	}
-	n = ft_atoi(argv[1]);
-	ft_putnbr_fd(n, 1);
-	ft_putchar_fd('\n', 1);
-	
-	//testing with INT_MIN
-	ft_putnbr_fd(INT_MIN, 1);
-	ft_putchar_fd('\n', 1);
-	
-	return (0);
-}*/

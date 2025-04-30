@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 char	*ft_strdup(const char *s)
@@ -26,34 +24,3 @@ char	*ft_strdup(const char *s)
 	ft_strlcpy(dup, s, size);
 	return (dup);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*src;
-	char	*dst1;
-	char	*dst2;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [source string]\n");
-		return (1);
-	}
-	src = argv[1];
-
-	dst1 = ft_strdup(src);
-	if (!dst1)
-		printf("ft_strdup: NULL\n");
-	else
-		printf("ft_strdup: %s\n", dst1);
-	free(dst1);
-
-	dst2 = strdup(src);
-	if (!dst2)
-		printf("strdup: NULL\n");
-	else
-		printf("strdup: %s\n", dst2);
-	free(dst2);
-	
-	return (0);
-}*/

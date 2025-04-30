@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
 #include "libft.h"
 
 int	ft_isalpha(int c)
@@ -20,30 +18,3 @@ int	ft_isalpha(int c)
 		return (1);
 	return (0);
 }
-
-//TO TEST
-/*int	main(int argc, char** argv)
-{
-	char	c;
-	
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [character]\n");
-		return (1);
-	}
-	c = argv[1][0];
-
-	printf("ft_isalpha: ");
-	if (ft_isalpha(c))
-		printf ("%c is alphabetic\n", c);
-	else
-		printf ("%c is not alphabetic\n", c);
-	
-	printf("isalpha: ");
-	if (isalpha(c))
-		printf ("%c is alphabetic\n", c);
-	else
-		printf ("%c is not alphabetic\n", c);
-	
-	return (0);
-}*/

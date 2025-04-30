@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
-#include <stdio.h>
 #include "libft.h"
 
 static void	set_digits(char *s, long int nbr, size_t i)
@@ -69,33 +67,3 @@ char	*ft_itoa(int n)
 	s[digit_count] = '\0';
 	return (s);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s;
-	int		n;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [number]\n");
-		return (1);
-	}
-	n = ft_atoi(argv[1]);
-	s = ft_itoa(n);
-	if (!s)
-		printf("NULL\n");
-	else
-		printf("%s\n", s);
-	free(s);
-
-	//testing with INT_MIN
-	s = ft_itoa(INT_MIN);
-	if (!s)
-		printf("NULL\n");
-	else
-		printf("%s\n", s);
-	free(s);
-
-	return (0);
-}*/

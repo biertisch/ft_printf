@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//include condition for size == 0 || nmemb == 0 ? malloc(1)?
-
-#include <stdio.h>
-#include <stdint.h>
 #include "libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
@@ -30,69 +26,3 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ft_bzero(ptr, total_size);
 	return (ptr);
 }
-
-//TO TEST
-/*void	print_arr(int *arr, int nmemb)
-{
-	int	i;
-
-	i = 0;
-	while (i < nmemb)
-	{
-		printf("%d", *(arr + i));
-		i++;
-	}
-	printf("\n");
-}
-
-int	main(int argc, char **argv)
-{
-	int	*ptr1;
-	int	*ptr2;
-	int	nmemb;
-	int	size;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [number of members]\n");
-		return (1);
-	}
-	nmemb = ft_atoi(argv[1]);
-	size = 4;
-
-	printf("ft_calloc: ");
-	ptr1 = ft_calloc(nmemb, size);
-	if (!ptr1)
-		printf("NULL\n");
-	else 
-		print_arr(ptr1, nmemb);
-	free(ptr1);
-
-	printf("calloc: ");
-	ptr2 = calloc(nmemb, size);
-	if (!ptr2)
-		printf("NULL\n");
-	else
-		print_arr(ptr2, nmemb);
-	free(ptr2);
-
-	//Testing with size = 0
-	printf("ft_calloc: ");
-	ptr1 = ft_calloc(nmemb, 0);
-	if (!ptr1)
-		printf("NULL\n");
-	else
-		print_arr(ptr1, nmemb);
-	free(ptr1);
-
-	//testing with size = SIZE_MAX
-	printf("ft_calloc: ");
-	ptr1 = ft_calloc(2, SIZE_MAX);
-	if (!ptr1)
-		printf("NULL\n");
-	else
-		print_arr(ptr1, nmemb);
-	free(ptr1);
-
-	return (0);
-}*/

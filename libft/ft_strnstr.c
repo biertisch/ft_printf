@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 char	*ft_strnstr(const char *str, const char *sub, size_t n)
@@ -31,25 +29,3 @@ char	*ft_strnstr(const char *str, const char *sub, size_t n)
 	}
 	return (NULL);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*str;
-	char	*sub;
-	int		n;
-
-	if (argc != 4)
-	{
-		printf("Usage: [filename] [main string] [substring] [length]\n");
-		return (1);
-	}
-	str = argv[1];
-	sub = argv[2];
-	n = ft_atoi(argv[3]);
-	printf("ft_strnstr: %s\n", ft_strnstr(str, sub, n));
-	//printf("strnstr: %s\n", strnstr(main, sub, n));
-	printf("ft_strnstr: %s\n", ft_strnstr(str, str, n));
-	//printf("strnstr: %s\n", strnstr(main, main, n));	
-	return (0);
-}*/

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
@@ -30,25 +28,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	return (ft_strlen(src));
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	dst1[50] = "hello";
-	char	dst2[50] = "hello";
-	char	*src;
-	int		size;
-
-	if (argc != 3)
-	{
-		printf("Usage: [filename] [source string] [size]\n");
-		return (1);
-	}
-	src = argv[1];
-	size = atoi(argv[2]);
-	printf("ft_strlcpy: %zu\n", ft_strlcpy(dst1, src, size));
-	printf("Destination string: %s\n", dst1);
-	printf("strlcpy: %zu\n", strlcpy(dst2, src, size));
-	printf("Destination string: %s\n", dst2);
-	return (0);
-}*/

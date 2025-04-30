@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 static int	ft_isspace(int c)
@@ -46,24 +45,3 @@ int	ft_atoi(const char *nptr)
 		res *= -1;
 	return (res);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*nptr;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [number]\n");
-		return (1);
-	}
-	nptr = argv[1];
-	printf("ft_atoi: %d\n", ft_atoi(nptr));
-	printf("atoi: %d\n", atoi(nptr));
-	printf("ft_atoi: %d\n", ft_atoi("2147483647"));
-	printf("atoi: %d\n", atoi("2147483647"));
-	printf("ft_atoi: %d\n", ft_atoi("-2147483648"));
-	printf("atoi: %d\n", atoi("-2147483648"));
-	printf("ft_atoi: %d\n", ft_atoi(NULL));
-	return (0);
-}*/

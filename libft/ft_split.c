@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 static void	free_all(char **arr, size_t i)
@@ -88,42 +87,3 @@ char	**ft_split(char const *s, char c)
 	arr = build_arr(s, c, str_count);
 	return (arr);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	**arr;
-	char	*s;
-	char	c;
-	int		i;
-
-	if (argc != 3)
-	{
-		printf("Usage: [filename] [string] [delimiter character]\n");
-		return (1);
-	}
-	s = argv[1];
-	c = argv[2][0];
-	arr = ft_split(s, c);
-	if (!arr)
-	{
-		printf("NULL\n");
-		return (1);
-	}
-	i = 0;
-	while (arr[i])
-	{
-		printf("arr[%d]: %s\n", i, arr[i]);
-		i++;
-	}
-
-	//free memory
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	return (0);
-}*/

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
@@ -20,18 +19,3 @@ void	ft_putendl_fd(char *s, int fd)
 	ft_putstr_fd(s, fd);
 	ft_putchar_fd('\n', fd);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	*s;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [string]\n");
-		return (1);
-	}
-	s = argv[1];
-	ft_putendl_fd(s, 1);
-	return (0);
-}*/

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
 #include "libft.h"
 
 int	ft_toupper(int c)
@@ -20,20 +18,3 @@ int	ft_toupper(int c)
 		c -= 32;
 	return (c);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv)
-{
-	char	c;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [character]\n");
-		return (1);
-	}
-	c = argv[1][0];
-	printf("ft_toupper: %c\n", ft_toupper(c));
-	c = argv[1][0];
-	printf("toupper: %c\n", toupper(c));
-	return (0);
-}*/

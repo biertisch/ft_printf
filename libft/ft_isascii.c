@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
 #include "libft.h"
 
 int	ft_isascii(int c)
@@ -20,30 +18,3 @@ int	ft_isascii(int c)
 		return (1);
 	return (0);
 }
-
-//TO TEST
-/*int	main(int argc, char **argv) 
-{
-	int	c;
-
-	if (argc != 2)
-	{
-		printf("Usage: [filename] [character code]\n");
-		return (1);
-	}
-	c = ft_atoi(argv[1]);
-
-	printf("ft_isascii: ");
-	if (ft_isascii(c))
-		printf("ascii\n");
-	else
-		printf("not ascii\n");
-
-	printf("isascii: ");
-	if (isascii(c))
-		printf("ascii\n");
-	else
-		printf("not ascii\n");
-
-	return (0);
-}*/
