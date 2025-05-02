@@ -4,7 +4,7 @@ CFLAGS = -Wall -Werror -Wextra -I./includes/
 LIB = ar rcs
 RM = rm -f
 
-SRCS = ft_printf.c srcs/ft_printf_utils.c srcs/ft_printf_utils2.c
+SRCS = ft_printf.c ft_printf_utils.c ft_printf_utils2.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all clean fclean re
