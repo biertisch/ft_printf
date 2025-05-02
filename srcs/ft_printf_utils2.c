@@ -10,60 +10,60 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
-
-int	print_ptr_rec(uintptr_t addr)
-{
-	char	*base;
-	int		len;
-
-	base = "0123456789abcdef";
-	len = 0;
-	if (addr < 16)
-		len += print_char(base[addr]);
-	else
-	{
-		len += print_ptr_rec(addr / 16);
-		len += print_char(base[addr % 16]);
-	}
-	return (len);
-}
+#include "../includes/ft_printf.h"
 
 int	print_ptr(void *ptr)
 {
-	int			len;
-	uintptr_t	addr;
+	char	*buffer;
+	int		len;
+	int		res;
 
 	if (!ptr)
 		return (print_str("(nil)"));
 	len = 0;
-	len += print_str("0x");
-	addr = (uintptr_t)ptr;
-	len += print_ptr_rec(addr);
-	return (len);
+	res = print_str("0x");
+	if (update_len(res, &len) < 0)
+		return (-1);
+	buffer = ft_itoa_base((uintptr_t)ptr, "0123456789abcdef");
+	if (!buffer)
+		return (-1);
+	res = print_str(buffer);
+	free (buffer);
+	return (update_len(res, &len));
 }
 
-int	print_hex_rec(unsigned long n, char *base)
+int	count_digits(uintptr_t n, size_t base_size)
 {
-	int	len;
+	int	digits;
 
-	len = 0;
-	if (n < 16)
-		len += print_char(base[n]);
-	else
+	digits = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
 	{
-		len += print_hex_rec(n / 16, base);
-		len += print_char(base[n % 16]);
+		digits++;
+		n /= base_size;
 	}
-	return (len);
+	return (digits);
 }
 
-int	print_hex(unsigned int n, char type)
+char	*ft_itoa_base(uintptr_t n, char *base)
 {
-	unsigned long	nbr;
+	char	*buffer;
+	size_t	base_size;
+	int		digits;
 
-	nbr = n;
-	if (type == 'X')
-		return (print_hex_rec(nbr, "0123456789ABCDEF"));
-	return (print_hex_rec(nbr, "0123456789abcdef"));
+	base_size = ft_strlen(base);
+	digits = count_digits(n, base_size);
+	buffer = malloc(digits + 1);
+	if (!buffer)
+		return (NULL);
+	buffer[digits] = '\0';
+	while (digits > 0)
+	{
+		digits--;
+		buffer[digits] = base[n % base_size];
+		n /= base_size;
+	}
+	return (buffer);
 }

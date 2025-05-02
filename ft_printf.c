@@ -10,22 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//not sure if to include ll.60-61
-
 #include "includes/ft_printf.h"
 #include <limits.h>
 #include <stdio.h>
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 int	update_len(int res, int *len)
 {
 	if (res < 0)
 		return (-1);
 	*len += res;
-	return (0);
+	return (*len);
 }
 
 int	convert(va_list args, char type)
 {
+	int	len;
+
+	len = 0;
 	if (type == '%')
 		return (print_char('%'));
 	if (type == 'c')
@@ -40,7 +51,24 @@ int	convert(va_list args, char type)
 		return (print_hex(va_arg(args, unsigned int), type));
 	if (type == 'p')
 		return (print_ptr(va_arg(args, void *)));
-	return (-1);
+	if (update_len(print_char('%'), &len) < 0)
+		return (-1);
+	return (update_len(print_char(type), &len));
+}
+
+int	lone_percent(const char *format)
+{
+	int	i;
+
+	i = 0;
+	while (format[i])
+	{
+		if (format[i] == '%' && format [i - 1] != '%'
+			&& !format[i + 1])
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -50,16 +78,14 @@ int	ft_printf(const char *format, ...)
 	int		res;
 	int		i;
 
-	if (!format)
-		return (-1);
 	len = 0;
 	i = 0;
 	va_start(args, format);
+	if (lone_percent(format))
+		return (-1);
 	while (format[i])
 	{
-		if (format[i] == '%' && !format[i + 1])
-			return (-1);
-		else if (format[i] == '%' && format[i + 1])
+		if (format[i] == '%')
 			res = convert(args, format[++i]);
 		else
 			res = print_char(format[i]);
@@ -71,194 +97,110 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-/*int	main(void)
+/*void print_test(const char *desc, int ft_ret, int og_ret)
 {
-	int	i;
-	int	ft;
-	int	og;
+    printf("TEST: %s\n", desc);
+    printf("Return ft: %d | og: %d\n", ft_ret, og_ret);
+    printf("--------------------------------------------------\n");
+}
 
-	i = 0;
+int main(void)
+{
+	int ft_ret, og_ret;
+	char *null_str = NULL;
+	void *null_ptr = NULL;
 
-	printf("TEST %i (no %%)\n", i);
-	ft = ft_printf("ft_printf");
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf");
-	printf("\nreturn value: %d\n\n", og);
-	i++;
-	
-	printf("TEST %i (%%c, 'o')\n", i);
-	ft = ft_printf("ft_printf: %c", 'o');
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %c", 'o');
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// NO PLACEHOLDER
+	ft_ret = ft_printf("ft: Hello, world!\n");
+	og_ret = printf("og: Hello, world!\n");
+	print_test("No placeholder", ft_ret, og_ret);
 
-	printf("TEST %i (%%c, '9')\n", i);
-	ft = ft_printf("ft_printf: %c", '9');
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %c", '9');
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// %%
+	ft_ret = ft_printf("ft: 100%%\n");
+	og_ret = printf("og: 100%%\n");
+	print_test("Literal percent %%", ft_ret, og_ret);
 
-	printf("TEST %i (%%c, '!')\n", i);
-	ft = ft_printf("ft_printf: %c", '!');
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %c", '!');
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// CHAR
+	ft_ret = ft_printf("ft: %c\n", 'A');
+    og_ret = printf("og: %c\n", 'A');
+    print_test("Char: ASCII 'A'", ft_ret, og_ret);
 
-	printf("TEST %i (%%c, 128)\n", i);
-	ft = ft_printf("ft_printf: %c", 128);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %c", 128);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %c\n", 200);
+	og_ret = printf("og: %c\n", 200);
+	print_test("Char: extended ASCII 200", ft_ret, og_ret);
 
-	printf("TEST %i (%%s, 'hello, world')\n", i);
-	ft = ft_printf("ft_printf: %s", "hello, world");
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %s", "hello, world");
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// STRING
+	ft_ret = ft_printf("ft: %s\n", "str");
+    og_ret = printf("og: %s\n", "str");
+    print_test("String: Normal", ft_ret, og_ret);
 
-	printf("TEST %i (%%s, '')\n", i);
-	ft = ft_printf("ft_printf: %s", "");
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %s", "");
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %s\n", "");
+	og_ret = printf("og: %s\n", "");
+	print_test("String: empty", ft_ret, og_ret);
 
-	printf("TEST %i (%%s, NULL)\n", i);
-	ft = ft_printf("ft_printf: %s", NULL);
-	write(1, "\n", 1);
-	printf("return value: %d\n\n", ft);
+	ft_ret = ft_printf("ft: %s\n", null_str);
+	og_ret = printf("og: %s\n", null_str);
+	print_test("String: NULL", ft_ret, og_ret);
 
-	printf("TEST %i (%%)\n", i);
-	ft = ft_printf("ft_printf: 100%%");
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    100%%");
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// POINTER
+	ft_ret = ft_printf("ft: %p\n", (void *)"ptr");
+    og_ret = printf("og: %p\n", (void *)"ptr");
+    print_test("Pointer: Non-null", ft_ret, og_ret);
 
-	printf("TEST %i (%%d, 0)\n", i);
-	ft = ft_printf("ft_printf: %d", 0);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %d", 0);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %p\n", null_ptr);
+	og_ret = printf("og: %p\n", null_ptr);
+	print_test("Pointer: NULL", ft_ret, og_ret);
 
-	printf("TEST %i (%%d, 3)\n", i);
-	ft = ft_printf("ft_printf: %d", 3);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %d", 3);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// DECIMAL
+	ft_ret = ft_printf("ft: %d %d %d\n", 0, 42, -42);
+	og_ret = printf("og: %d %d %d\n", 0, 42, -42);
+	print_test("Signed int (%%d): 0, +42, -42", ft_ret, og_ret);
 
-	printf("TEST %i (%%d, INT_MIN)\n", i);
-	ft = ft_printf("ft_printf: %d", INT_MIN);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %d", INT_MIN);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %i %i %i\n", 0, INT_MAX, INT_MIN);
+	og_ret = printf("og: %i %i %i\n", 0, INT_MAX, INT_MIN);
+	print_test("Signed int (%%i): 0, INT_MAX, INT_MIN", ft_ret, og_ret);
 
-	printf("TEST %i (%%i, -42)\n", i);
-	ft = ft_printf("ft_printf: %i", -42);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %i", -42);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// UNSIGNED
+	ft_ret = ft_printf("ft: %u\n", UINT_MAX);
+    og_ret = printf("og: %u\n", UINT_MAX);
+    print_test("Unsigned: UINT_MAX", ft_ret, og_ret);
 
-	printf("TEST %i (%%i, INT_MAX)\n", i);
-	ft = ft_printf("ft_printf: %i", INT_MAX);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %i", INT_MAX);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %u\n", -1);
+	og_ret = printf("og: %u\n", -1);
+	print_test("Unsigned: -1 (wraparound)", ft_ret, og_ret);
 
-	printf("TEST %i (%%u, 42)\n", i);
-	ft = ft_printf("ft_printf: %u", 42);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %u", 42);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// HEX
+	ft_ret = ft_printf("ft: %x %X\n", 255, 255);
+    og_ret = printf("og: %x %X\n", 255, 255);
+    print_test("Hex (lower and upper): 255", ft_ret, og_ret);
 
-	printf("TEST %i (%%u, 0)\n", i);
-	ft = ft_printf("ft_printf: %u", 0);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %u", 0);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %x %X\n", 0, 0);
+	og_ret = printf("og: %x %X\n", 0, 0);
+	print_test("Hex (lower and upper): 0", ft_ret, og_ret);
 
-	printf("TEST %i (%%u, INT_MAX)\n", i);
-	ft = ft_printf("ft_printf: %u", INT_MAX);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %u", INT_MAX);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	// MIXED
+	ft_ret = ft_printf("ft: %c %s %d %u %x %p %%\n",
+		'c', "str", -1, 42949, 255, (void *)"ptr");
+	og_ret = printf("og: %c %s %d %u %x %p %%\n",
+		'c', "str", -1, 42949, 255, (void *)"ptr");
+	print_test("Mixed", ft_ret, og_ret);
 
-	printf("TEST %i (%%u, -42)\n", i);
-	ft = ft_printf("ft_printf: %u", -42);
-	write(1, "\n", 1);
-	printf("return value: %d\n\n", ft);
-	i++;
+	// INVALID CASES
+	ft_ret = ft_printf("ft: %r\n");
+	// og_ret = printf("og: %r\n"); // cc without -Werror
+	print_test("Invalid placeholder (%%r)", ft_ret, og_ret);
 
-	printf("TEST %i (%%x, 42)\n", i);
-	ft = ft_printf("ft_printf: %x", 42);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %x", 42);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: %d %d\n", 42);
+	// og_ret = printf("og: %d %d\n", 42); // cc without -Werror
+	print_test("Too few arguments", ft_ret, og_ret);
 
-	printf("TEST %i (%%x, 255)\n", i);
-	ft = ft_printf("ft_printf: %x", 255);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %x", 255);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
+	ft_ret = ft_printf("ft: hello %");
+	// og_ret = printf("og: hello %"); // cc without -Werror
+	print_test("Format ending with one %%", ft_ret, og_ret);
 
-	printf("TEST %i (%%X, 42)\n", i);
-	ft = ft_printf("ft_printf: %X", 42);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %X", 42);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
-
-	printf("TEST %i (%%X, 255)\n", i);
-	ft = ft_printf("ft_printf: %X", 255);
-	write(1, "\n", 1);
-	printf("return value: %d\n", ft);
-	og = printf("printf:    %X", 255);
-	printf("\nreturn value: %d\n\n", og);
-	i++;
-
-	printf("\n");
+	// ft_ret = ft_printf(NULL); // causes crash
+	// printf("ft: return of NULL format: %d\n", ft_ret);
+	// og_ret = printf(NULL); // causes crash
 
 	return (0);
 }*/
-
-/*TEST
-multiple variables
-invalid format
-format ending with %
-placeholders without corresponding arguments
-invalid placeholder %r
-*/

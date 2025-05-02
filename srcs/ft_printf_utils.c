@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	print_char(char c)
 {
@@ -26,39 +26,53 @@ int	print_str(char *s)
 
 int	print_int(int n)
 {
+	char		*buffer;
 	long int	nbr;
 	int			len;
+	int			res;
 
 	nbr = n;
 	len = 0;
 	if (nbr < 0)
 	{
-		len += print_char('-');
+		res = print_char('-');
+		if (update_len(res, &len) < 0)
+			return (-1);
 		nbr *= -1;
 	}
-	if (nbr < 10)
-		len += print_char(nbr + 48);
-	else
-	{
-		len += print_int(nbr / 10);
-		len += print_char(nbr % 10 + 48);
-	}
-	return (len);
+	buffer = ft_itoa_base((uintptr_t)nbr, "0123456789");
+	if (!buffer)
+		return (-1);
+	res = print_str(buffer);
+	free (buffer);
+	return (update_len(res, &len));
 }
 
 int	print_uint(unsigned int n)
 {
-	unsigned long	nbr;
-	int				len;
+	char	*buffer;
+	int		len;
 
-	nbr = n;
-	len = 0;
-	if (nbr < 10)
-		len += print_char(nbr + 48);
+	buffer = ft_itoa_base((uintptr_t)n, "0123456789");
+	if (!buffer)
+		return (-1);
+	len = print_str(buffer);
+	free (buffer);
+	return (len);
+}
+
+int	print_hex(unsigned int n, char type)
+{
+	char	*buffer;
+	int		len;
+
+	if (type == 'x')
+		buffer = ft_itoa_base((uintptr_t)n, "0123456789abcdef");
 	else
-	{
-		len += print_uint(nbr / 10);
-		len += print_char(nbr % 10 + 48);
-	}
+		buffer = ft_itoa_base((uintptr_t)n, "0123456789ABCDEF");
+	if (!buffer)
+		return (-1);
+	len = print_str(buffer);
+	free (buffer);
 	return (len);
 }
