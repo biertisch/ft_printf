@@ -34,9 +34,6 @@ int	update_len(int res, int *len)
 
 int	convert(va_list args, char type)
 {
-	int	len;
-
-	len = 0;
 	if (type == '%')
 		return (print_char('%'));
 	if (type == 'c')
@@ -51,9 +48,7 @@ int	convert(va_list args, char type)
 		return (print_hex(va_arg(args, unsigned int), type));
 	if (type == 'p')
 		return (print_ptr(va_arg(args, void *)));
-	if (update_len(print_char('%'), &len) < 0)
-		return (-1);
-	return (update_len(print_char(type), &len));
+	return (ft_printf("%%%c", type));
 }
 
 int	lone_percent(const char *format)
@@ -122,8 +117,8 @@ int main(void)
 
 	// CHAR
 	ft_ret = ft_printf("ft: %c\n", 'A');
-    og_ret = printf("og: %c\n", 'A');
-    print_test("Char: ASCII 'A'", ft_ret, og_ret);
+	og_ret = printf("og: %c\n", 'A');
+	print_test("Char: ASCII 'A'", ft_ret, og_ret);
 
 	ft_ret = ft_printf("ft: %c\n", 200);
 	og_ret = printf("og: %c\n", 200);
@@ -131,8 +126,8 @@ int main(void)
 
 	// STRING
 	ft_ret = ft_printf("ft: %s\n", "str");
-    og_ret = printf("og: %s\n", "str");
-    print_test("String: Normal", ft_ret, og_ret);
+	og_ret = printf("og: %s\n", "str");
+	print_test("String: Normal", ft_ret, og_ret);
 
 	ft_ret = ft_printf("ft: %s\n", "");
 	og_ret = printf("og: %s\n", "");
@@ -144,8 +139,8 @@ int main(void)
 
 	// POINTER
 	ft_ret = ft_printf("ft: %p\n", (void *)"ptr");
-    og_ret = printf("og: %p\n", (void *)"ptr");
-    print_test("Pointer: Non-null", ft_ret, og_ret);
+	og_ret = printf("og: %p\n", (void *)"ptr");
+	print_test("Pointer: Non-null", ft_ret, og_ret);
 
 	ft_ret = ft_printf("ft: %p\n", null_ptr);
 	og_ret = printf("og: %p\n", null_ptr);
@@ -162,8 +157,8 @@ int main(void)
 
 	// UNSIGNED
 	ft_ret = ft_printf("ft: %u\n", UINT_MAX);
-    og_ret = printf("og: %u\n", UINT_MAX);
-    print_test("Unsigned: UINT_MAX", ft_ret, og_ret);
+	og_ret = printf("og: %u\n", UINT_MAX);
+	print_test("Unsigned: UINT_MAX", ft_ret, og_ret);
 
 	ft_ret = ft_printf("ft: %u\n", -1);
 	og_ret = printf("og: %u\n", -1);
@@ -171,8 +166,8 @@ int main(void)
 
 	// HEX
 	ft_ret = ft_printf("ft: %x %X\n", 255, 255);
-    og_ret = printf("og: %x %X\n", 255, 255);
-    print_test("Hex (lower and upper): 255", ft_ret, og_ret);
+	og_ret = printf("og: %x %X\n", 255, 255);
+	print_test("Hex (lower and upper): 255", ft_ret, og_ret);
 
 	ft_ret = ft_printf("ft: %x %X\n", 0, 0);
 	og_ret = printf("og: %x %X\n", 0, 0);
