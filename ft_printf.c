@@ -73,6 +73,8 @@ int	ft_printf(const char *format, ...)
 	int		res;
 	int		i;
 
+	if (!format)
+		return (-1);
 	len = 0;
 	i = 0;
 	va_start(args, format);
@@ -92,7 +94,7 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-/*void print_test(const char *desc, int ft_ret, int og_ret)
+void print_test(const char *desc, int ft_ret, int og_ret)
 {
     printf("TEST: %s\n", desc);
     printf("Return ft: %d | og: %d\n", ft_ret, og_ret);
@@ -193,9 +195,9 @@ int main(void)
 	// og_ret = printf("og: hello %"); // cc without -Werror
 	print_test("Format ending with one %%", ft_ret, og_ret);
 
-	// ft_ret = ft_printf(NULL); // causes crash
-	// printf("ft: return of NULL format: %d\n", ft_ret);
-	// og_ret = printf(NULL); // causes crash
+	ft_ret = ft_printf(NULL);
+	// og_ret = printf(NULL); // cc without -Werror
+	print_test("Format: NULL", ft_ret, og_ret);
 
 	return (0);
-}*/
+}
