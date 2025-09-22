@@ -19,7 +19,7 @@ clean:
 	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAM)
+	$(RM) $(NAME)
 
 re: fclean all
 
