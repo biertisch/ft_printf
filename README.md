@@ -39,9 +39,9 @@ Integrated in [**libft**](https://github.com/biertisch/libft).
 
 To run the tester:
 ```
-./test/test.sh
+make test
 ```
-> Note: To test the original `printf` behaviour on invalid cases, uncomment lines in `main.c` and recompile without `-Werror`.
+> Note: To test the original `printf` behaviour on invalid cases, uncomment lines in `test/main.c` and recompile without `-Werror`.
 
 ---
 ### About 42

@@ -15,6 +15,10 @@ $(NAME): $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+test:
+	@chmod 755 test/test.sh
+	@./test/test.sh
+
 clean:
 	$(RM) $(OBJ)
 
@@ -23,4 +27,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
